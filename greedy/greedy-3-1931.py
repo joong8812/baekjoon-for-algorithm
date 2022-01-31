@@ -39,10 +39,10 @@ meeting_room_time_list.sort(key= lambda x: x[0])
 meeting_room_time_list.sort(key= lambda x: x[1])
 
 count = 0
-next_meeting_start = 0
+next_meeting_end = 0
 for time in meeting_room_time_list:
-    if next_meeting_start <= time[0]:
+    if next_meeting_end <= time[0]:
         count += 1
-        next_meeting_start = time[1]
+        next_meeting_end = time[1]
 
 print(count)
