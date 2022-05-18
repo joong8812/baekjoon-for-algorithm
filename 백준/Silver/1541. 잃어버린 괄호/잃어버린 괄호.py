@@ -1,16 +1,12 @@
-f = input()
-divide_by_minus = f.split('-')
-firstnum = divide_by_minus.pop(0)
-total_negative_num = 0
-total_positive_num = 0
+number_group = input().split('-')
 
-for each_part in divide_by_minus:
-    nums = list(map(int, each_part.split('+')))
-    total_negative_num += sum(nums)
+organized_number_group = []
+for i, num in enumerate(number_group):
+  if i == 0 and '+' in num:
+    organized_number_group.append(sum(list(map(int, num.split('+')))))
+  elif i == 0:
+    organized_number_group.append(int(num))
+  else:
+    organized_number_group.append(sum(list(map(int, num.split('+')))) * -1)
 
-if firstnum != 0:
-    nums = list(map(int, firstnum.split('+')))
-    total_positive_num += sum(nums)
-
-min_num = total_positive_num - total_negative_num
-print(min_num)
+print(sum(organized_number_group))
