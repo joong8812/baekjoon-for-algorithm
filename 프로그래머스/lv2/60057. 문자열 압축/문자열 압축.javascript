@@ -1,28 +1,38 @@
 function solution(s) {
   let answer = s.length;
+  
+  for (let i = 1; i <= parseInt(s.length/2) + 1; i++) {
+    let tempArr = [];
+    let pos = 0;
 
-  for (let i = 1; i <= parseInt(s.length / 2); i++) {
-    let str = "";
-    let cnt = 1;
-    let tempStr = s.substr(0, i);
-    let idx = 0;
+    while(pos < s.length) {
+      tempArr.push(s.slice(pos, pos+i))
+      pos += i;
+    }
 
-    for (idx = i; idx <= s.length; idx += i) {
-      let nextStr = s.substr(idx, i);
+    let count = 1;
+    let newString = "";
+    
+    for (let j = 0; j < tempArr.length; j++) {
+      if (j === 0) {
+        newString += tempArr[j];
+        continue;
+      }
 
-      if (tempStr === nextStr) {
-        cnt += 1;
+      if (tempArr[j-1] === tempArr[j]) {
+        // if (count !== 0) continue;
+        count++;
       } else {
-        if (cnt === 1) str = str + tempStr;
-        else str = str + cnt + tempStr;
-
-        cnt = 1;
-        tempStr = nextStr;
+        if (count !== 1) newString += count;
+        count = 1;
+        newString += tempArr[j]
       }
     }
-    if (cnt === 1) str = str + tempStr;
-    else str = str + cnt + tempStr;
-    answer = Math.min(answer, str.length);
+
+    if (count !== 1) newString += count;
+    
+    answer = Math.min(answer, newString.length);
+    tempArr = [];
   }
-    return answer;
+  return answer;
 }
